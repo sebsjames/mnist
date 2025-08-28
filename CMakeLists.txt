@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Give your project a name
-project(mathplot_template)
+project(mnist)
 
 # mathplot uses c++-20 language features
 set(CMAKE_CXX_STANDARD 20)
@@ -28,8 +28,8 @@ find_package(OpenGL REQUIRED)
 find_package(glfw3 3.3 REQUIRED)
 find_package(Freetype REQUIRED)
 find_package(nlohmann_json REQUIRED)
-find_package(Armadillo) # Optional
-find_package(HDF5)      # Optional
+#find_package(Armadillo) # Optional
+#find_package(HDF5)      # Optional
 
 # include files for graphics
 set(MPLOT_INC_EXTRA ${ARMADILLO_INCLUDE_DIR} ${ARMADILLO_INCLUDE_DIRS} ${HDF5_INCLUDE_DIR})
@@ -47,10 +47,10 @@ include_directories(BEFORE ${MPLOT_INCLUDE_PATH}/maths)   # Allows sm/Header.h t
 #
 
 # The sample is compiled from a single c++ file
-add_executable(prog1 prog1.cpp)
+add_executable(grid_mnist grid_mnist.cpp)
 
 # Mathplot code requires a number of libraries, these are the ones required for graphics
-target_link_libraries(prog1 OpenGL::GL Freetype::Freetype glfw)
+target_link_libraries(grid_mnist OpenGL::GL Freetype::Freetype glfw)
 # If you change prog1 to use sm::hdfdata or sm::bezcurve, you may need to link these too:
 # set(MPLOT_LIBS_EXTRA ${ARMADILLO_LIBRARY} ${ARMADILLO_LIBRARIES} ${HDF5_C_LIBRARIES})
 
