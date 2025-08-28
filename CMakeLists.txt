@@ -1,5 +1,5 @@
 #
-# This is an example CMakeLists.txt file to compile a program against mathplot
+# This is a CMakeLists.txt file to compile a program against mathplot
 #
 cmake_minimum_required(VERSION 3.10)
 
@@ -28,31 +28,22 @@ find_package(OpenGL REQUIRED)
 find_package(glfw3 3.3 REQUIRED)
 find_package(Freetype REQUIRED)
 find_package(nlohmann_json REQUIRED)
-#find_package(Armadillo) # Optional
-#find_package(HDF5)      # Optional
 
 # include files for graphics
-set(MPLOT_INC_EXTRA ${ARMADILLO_INCLUDE_DIR} ${ARMADILLO_INCLUDE_DIRS} ${HDF5_INCLUDE_DIR})
-include_directories(${MPLOT_INC_EXTRA} ${OPENGL_INCLUDE_DIR} ${GLFW3_INCLUDE_DIR} ${FREETYPE_INCLUDE_DIRS})
+include_directories(${OPENGL_INCLUDE_DIR} ${GLFW3_INCLUDE_DIR} ${FREETYPE_INCLUDE_DIRS})
 # Assuming that you installed mathplot in-tree (i.e. 'next to' yourprog.cpp).
 set(MPLOT_INCLUDE_PATH "${PROJECT_SOURCE_DIR}/mathplot" CACHE PATH "The path to mathplot")
 include_directories(BEFORE ${MPLOT_INCLUDE_PATH})         # Allows mplot/Header.h to be found
 include_directories(BEFORE ${MPLOT_INCLUDE_PATH}/maths)   # Allows sm/Header.h to be found
 
-# If you want to add another directory to your include path, you can add an extra include_directories call:
-# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/my_includes)
-
 #
 # All the library finding is now done. It's time to compile the program.
 #
 
-# The sample is compiled from a single c++ file
+# The example is compiled from a single c++ file
 add_executable(grid_mnist grid_mnist.cpp)
-
 # Mathplot code requires a number of libraries, these are the ones required for graphics
 target_link_libraries(grid_mnist OpenGL::GL Freetype::Freetype glfw)
-# If you change prog1 to use sm::hdfdata or sm::bezcurve, you may need to link these too:
-# set(MPLOT_LIBS_EXTRA ${ARMADILLO_LIBRARY} ${ARMADILLO_LIBRARIES} ${HDF5_C_LIBRARIES})
 
 #
 # All done!
