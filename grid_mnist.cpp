@@ -32,7 +32,7 @@ int main (int argc, char** argv)
     std::cout << "Displaying MNIST character " << index << " (use `" << argv[0] << " N` to change)\n";
 
     // Create a visual for the numeral in it's as-written Cartesian representation
-    sm::vec<float> offset = {0,0,0};
+    sm::vec<float> offset = { -g.width() / 2.0f, -g.height() / 2.0f, 0.0f };
     auto gv0 = std::make_unique<mplot::GridVisual<float>>(&g, offset);
     v.bindmodel (gv0);
     gv0->gridVisMode = mplot::GridVisMode::RectInterp;
