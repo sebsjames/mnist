@@ -7,6 +7,8 @@ It also provides a program called `grid_mnist` to display the
 characters. This program uses
 [mathplot](https://github.com/sebsjames/mathplot) for the display.
 
+![An image of MNIST numeral ID 0 which is a seven](https://github.com/sebsjames/mnist/blob/main/grid_mnist_0.png?raw=true)
+
 ## Dependencies
 
 If you are using Debian or Ubuntu, the following `apt` command should
