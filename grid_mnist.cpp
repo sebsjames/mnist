@@ -1,5 +1,5 @@
 /*
- * GridVisual to view an Mnist char
+ * GridVisual to view an MNIST char
  */
 
 #include <iostream>
@@ -10,12 +10,12 @@
 
 #include <mplot/Visual.h>
 #include <mplot/GridVisual.h>
-#include "Mnist.h"
+#include "mnist"
 
 int main (int argc, char** argv)
 {
     // Load MNIST data
-    sm::Mnist mni(std::string("../data/"));
+    sm::mnist mni(std::string("../data/"));
 
     int index = 0;
     if (argc > 1) { index = std::stoi(std::string(argv[1])); }
@@ -24,10 +24,12 @@ int main (int argc, char** argv)
     auto [ id, label, data ] = mni.test_example (index);
 
     // Create a scene
-    mplot::Visual v(1280, 1280, "Mnist char");
+    mplot::Visual v(1280, 1280, "MNIST char");
     // Create a Grid for visualising the numeral...
     constexpr sm::vec<float, 2> grid_spacing = {0.05f, 0.05f};
     sm::grid g(28u, 28u, grid_spacing);
+
+    std::cout << "Displaying MNIST character " << index << " (use `" << argv[0] << " N` to change)\n";
 
     // Create a visual for the numeral in it's as-written Cartesian representation
     sm::vec<float> offset = {0,0,0};

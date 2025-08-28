@@ -1,9 +1,10 @@
+// -*- C++ -*-
 /*!
  * \file
  *
  * \brief A class for loading the MNIST handwritten numerals
  *
- * Mnist allows you to load in the Mnist database of handwritten numerals.
+ * mnist allows you to load in the MNIST database of handwritten numerals.
  *
  * \author Seb James
  * \date May 2020
@@ -46,19 +47,19 @@
 #include <sm/vec>
 #include <sm/vvec>
 
-namespace sm
+namespace sm // Using the Seb's maths namespace
 {
-    //! Mnist images are 28x28=784 pixels
+    //! mnist images are 28x28=784 pixels
     constexpr int mnlen = 784;
 
     enum class fixlabels { yes, no };
 
-    //! A class to read, and then manage the data of, the Mnist database.
-    struct Mnist
+    //! A class to read, and then manage the data of, the mnist database.
+    struct mnist
     {
-        Mnist() { this->init(); }
+        mnist() { this->init(); }
 
-        Mnist (const std::string& path, fixlabels fl = fixlabels::no)
+        mnist (const std::string& path, fixlabels fl = fixlabels::no)
         {
             this->apply_label_cleaning = fl;
             this->basepath = path;
@@ -88,7 +89,7 @@ namespace sm
 
             if (!img_f.is_open() || !lbl_f.is_open()) {
                 std::stringstream ee;
-                ee << "Mnist: File access error opening MNIST data files: "
+                ee << "mnist: File access error opening MNIST data files: "
                    << img_p << " (images) and " << lbl_p << " (labels)";
                 throw std::runtime_error (ee.str());
             }
@@ -104,10 +105,10 @@ namespace sm
             img_f.read (buf, 4);
             this->nc = (buf[3]&0xff) | (buf[2]&0xff)<<8 | (buf[1]&0xff)<<16 | (buf[0]&0xff)<<24;
 
-            if (nr * nc != mnlen) { throw std::runtime_error ("Mnist: Expecting 28x28 images in Mnist!"); }
+            if (nr * nc != mnlen) { throw std::runtime_error ("mnist: Expecting 28x28 images!"); }
 
             // Check images magic number
-            if (magic_imgs != 2051) { throw std::runtime_error ("Mnist: data, images magic number is wrong"); }
+            if (magic_imgs != 2051) { throw std::runtime_error ("mnist: data, images magic number is wrong"); }
 
             // Process labels magic number etc
             lbl_f.read (buf, 4);
@@ -116,11 +117,11 @@ namespace sm
             int n_lbls = (buf[3]&0xff) | (buf[2]&0xff)<<8 | (buf[1]&0xff)<<16 | (buf[0]&0xff)<<24;
 
             // Check labels magic number
-            if (magic_lbls != 2049) { throw std::runtime_error ("Mnist: data, labels magic number is wrong"); }
+            if (magic_lbls != 2049) { throw std::runtime_error ("mnist: data, labels magic number is wrong"); }
 
             // Check reported number of images == number of labels
             if (n_lbls != n_imgs) {
-                throw std::runtime_error ("Mnist: Training data, num labels != num images");
+                throw std::runtime_error ("mnist: Training data, num labels != num images");
             }
 
             // Should now be able to read through each file, pulling in the data.
